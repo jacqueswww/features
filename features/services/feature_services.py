@@ -3,7 +3,8 @@ from features.models.feature import Feature
 
 class FeatureServices:
 
-    def create(params, action_by, commit):
+    @staticmethod
+    def create(params, action_by, commit=True):
         feature = Feature()
 
         set_fields_from_dict(feature, params, Feature._fields)
