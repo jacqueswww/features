@@ -4,7 +4,12 @@ class BaseConfig(object):
     DEBUG = False
     TESTING = False
 
-    MONGODB_SETTINGS = {}
+    MONGODB_SETTINGS = {
+        'db': 'features',
+        'host': '127.0.0.1',
+        'port': 27017,
+        'connect': False,
+    }
 
 
 class ProductionConfig(BaseConfig):
@@ -18,5 +23,8 @@ class DevelopmentConfig(BaseConfig):
 class TestingConfig(BaseConfig):
     TESTING = True
     MONGODB_SETTINGS = {
-
+        'db': 'features_test',
+        'host': '127.0.0.1',
+        'port': 27017,
+        'connect': False,
     }

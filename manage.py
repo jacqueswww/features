@@ -1,11 +1,11 @@
-from flask.ext.script import Manager, Server
-from features_app.app import current_app
+#!/usr/bin/env python
 
-@manager.command
-def worker():
-    app = create_app()
-    from musiclistr.queue_runner import queue_daemon
-    queue_daemon(app)
+from flask.ext.script import Manager, Server
+from features_app.app import create_app
+
+
+app = create_app()
+manager = Manager(app)
 
 
 # Turn on debugger by default and reloader
