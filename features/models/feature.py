@@ -1,17 +1,26 @@
-import datetime
-from features_app.db import db
+from features_app.db import db 
+# from sqlalchemy.schema import ForeignKey
+from sqlalchemy.sql import func
 
 
-class Feature(db.DynamicDocument):
-    title = db.StringField(max_length=2048, index=True)
-    descripton = db.StringField()
-    client_name = db.StringField(index=True)
-    client_id = db.StringField(index=True)
-    client_priority = db.IntField()
-    target_date = db.DateTimeField(default=datetime.datetime.now)
+class Feature(db.Model):
+    __tablename__ = "features"
+    id = db.Column(db.Integer, primary_key=True)
 
+    title = db.Column(db.String(255))
+    descripton = db.Column(db.String())
+
+    client_id = db.Column(db.Integer, db.ForeignKey('clients.id'))
+
+    client_priority = db.Column(db.Integer)
+    target_date = db.Column(db.DateTime(timezone=True), default=func.now())
+ 
     # additional meta:
-    created_by = db.StringField()
-    modified_by = db.StringField()
-    date_created =  db.DateTimeField(default=datetime.datetime.now)
-    date_modified =  db.DateTimeField()
+    created_by_id = db.Column(db.Integer, db.ForeignKey('users.id'))
+    modified_by_id = db.Column(db.Integer, db.ForeignKey('users.id'))
+
+    created_by = db.relationship("User", foreign_keys=[created_by_id])
+    modified_by = db.relationship("User", foreign_keys=[modified_by_id])
+
+    date_created =  db.Column(db.DateTime(timezone=True), default=func.now())
+    date_modified =  db.Column(db.DateTime(timezone=True))

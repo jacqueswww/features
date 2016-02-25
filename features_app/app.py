@@ -33,16 +33,18 @@ def create_app():
         return db.session.query(User).get(user_id)
 
     @app.before_first_request
-    def create_user():
-        from sqlalchemy import func
-        if db.session.query(func.count(User.id)) == 0:
-            db.create_all()
+    def create_tables():
+        print('Creating tables...')
+        db.create_all()
+
+        if db.session.query(User).count() == 0:
             test_user = User()
             test_user.login="test_admin"
             test_user.password=generate_password_hash("test")
             test_user.is_super = True
             db.session.add(test_user)
             db.session.commit()
+
 
     @app.route('/')
     def home():

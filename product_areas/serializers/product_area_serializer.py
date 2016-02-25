@@ -1,10 +1,11 @@
 from marshmallow import Schema
 
 
-class ClientSerializer(Schema):
+class ProductAreaSerializer(Schema):
 
     class Meta:
         fields = (
             'id',
-            'name',
-            )
+            'name'
+        )
+

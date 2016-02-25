@@ -2,6 +2,7 @@ from features_app.db import db
 
 
 class User(db.Model):
+    __tablename__ = "users"
     id = db.Column(db.Integer, primary_key=True)
     first_name = db.Column(db.String(100))
     last_name = db.Column(db.String(100))
@@ -10,6 +11,9 @@ class User(db.Model):
     password = db.Column(db.String(64))
 
     is_super = db.Column(db.Boolean(), default=False)
+
+    # features_created_by = db.relationship("Feature", backref="features")
+    # freatures_modified_by = db.relationship("Feature", backref="features")
 
     # Flask-Login integration
     def is_authenticated(self):

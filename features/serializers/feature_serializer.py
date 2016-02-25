@@ -1,8 +1,7 @@
-from marshmallow import Schema, fields
+from marshmallow import Schema
 
 
-class SongSerializer(Schema):
-    id = fields.Str()
+class FeatureSerializer(Schema):
 
     class Meta:
         fields = (
