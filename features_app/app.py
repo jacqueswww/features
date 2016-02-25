@@ -34,13 +34,15 @@ def create_app():
 
     @app.before_first_request
     def create_user():
-        db.create_all()
-        test_user = User()
-        test_user.login="test_admin"
-        test_user.password=generate_password_hash("test")
-        test_user.is_super = True
-        db.session.add(test_user)
-        db.session.commit()
+        from sqlalchemy import func
+        if db.session.query(func.count(User.id)) == 0:
+            db.create_all()
+            test_user = User()
+            test_user.login="test_admin"
+            test_user.password=generate_password_hash("test")
+            test_user.is_super = True
+            db.session.add(test_user)
+            db.session.commit()
 
     @app.route('/')
     def home():

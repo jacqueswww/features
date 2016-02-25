@@ -1,15 +1,18 @@
 from flask import Blueprint, jsonify
 
 
+from clients.queries.client_queries import ClientQueries
+from clients.serializers.client_serializer import ClientSerializer
+
+
 clients = Blueprint('clients', __name__)
 
 
 @clients.route('/', methods=['GET'])
 def clients_endpoint():
-    return jsonify({
-            "clients": [
-                "Client A",
-                "Client B",
-                "Client C"
-            ]
+    results = ClientQueries.get_all()
+    print(results)
+    
+    return  jsonify({
+        "results": ClientSerializer(many=True).dump(results).data
         })

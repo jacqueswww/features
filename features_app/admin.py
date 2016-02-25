@@ -7,6 +7,7 @@ from features_app.admin_index_view import FAdminIndexView
 
 from clients.models.client import Client
 from users.models.user import User
+from product_areas.models.product_area import ProductArea
 
 admin = Admin(
     name="Features",
@@ -29,3 +30,4 @@ class ProtectedModelView(ModelView):
 
 admin.add_view(ProtectedModelView(Client, db.session))
 admin.add_view(ProtectedModelView(User, db.session))
+admin.add_view(ProtectedModelView(ProductArea, db.session))

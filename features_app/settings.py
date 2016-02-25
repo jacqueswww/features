@@ -4,7 +4,7 @@ class BaseConfig(object):
     DEBUG = False
     TESTING = False
     
-    SQLALCHEMY_DATABASE_URI = 'sqlite://'
+    SQLALCHEMY_DATABASE_URI = 'sqlite:////tmp/features.sql'
 
     SECRET_KEY = "Q!$G!QrGVQ$TRQ!@$QW#GS132877575759322FWE~$"
     SECURITY_PASSWORD_HASH = 'sha256_crypt'
