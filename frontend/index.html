@@ -1,5 +1,46 @@
-<html>
-    <body>
-        <h1> This needs to become something! </h1>
-    </body>
+<!DOCTYPE html>
+<html ng-app="featuresApp">
+<head ng-app="featuresApp">
+
+    <link rel="stylesheet" href="/bower_components/bootstrap/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="/css/main.css" />
+
+    <script src="bower_components/angular/angular.min.js"></script>
+    <script src="bower_components/angular-route/angular-route.min.js"></script>
+
+    <script src="js/main.js"></script>
+    <script src="js/controllers/features_controller.js"></script>
+    <script src="js/controllers/login_controller.js"></script>
+
+</head>
+<body ng-controller="mainController">
+
+<nav class="navbar navbar-inverse">
+<div class="container-fluid">
+<div class="navbar-header">
+    <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-9" aria-expanded="false">
+        <span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+    </button>
+        <a class="navbar-brand">Features</a>
+    </div>
+    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-9">
+        <ul class="nav navbar-nav">
+            <li><a href="#/login">Login</a></li>
+            <li><a href="#/features">Features</a></li>
+        </ul>
+    </div>
+</div>
+</nav>
+
+<!-- page gets injected here -->
+<div class="container-fluid" >
+  <div class="">
+    <div ng-view></div>
+  </div>
+</div>
+
+</body>
 </html>

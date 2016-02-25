@@ -1,0 +1,23 @@
+{
+  "name": "features",
+  "homepage": "https://github.com/jacqueswww/features",
+  "authors": [
+    "Jacques Wagener <jacques@dilectum.co.za>"
+  ],
+  "description": "A simplistic feature tracker.",
+  "main": "",
+  "moduleType": [],
+  "license": "MIT",
+  "private": true,
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "angular": "^1.5.0",
+    "bootstrap": "^3.3.6"
+  }
+}
