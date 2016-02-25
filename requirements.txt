@@ -1,8 +1,11 @@
 flask
 flask-login
 flask-script
-flask-mongoengine
+flask-admin
+flask-sqlalchemy
 marshmallow
 
-# ubuntu packages:
+
+# required ubuntu packages:
 # apt-get install mongodb
+

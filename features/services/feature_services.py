@@ -1,5 +1,7 @@
 from features_app.utils import set_fields_from_dict
+from features_app.db import db
 from features.models.feature import Feature
+
 
 class FeatureServices:
 
@@ -12,6 +14,7 @@ class FeatureServices:
         feature.created_by = action_by
 
         if commit:
-            feature.save()
+            db.session.add(feature)
+            db.session.commit()
 
         return feature

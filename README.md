@@ -3,7 +3,7 @@ Features - a simplistic feature tracker.
 
 Requirements:  
     - MongoDB  
-    - Python 3 virtual environment  
+    - Python 3 interpreter and virtual environment  
 
 Development Setup:  
 
@@ -23,11 +23,18 @@ To enter your virtual environment:
 source features/bin/activate
 ```
 
-Then install requirements.
+2.) Then install requirements.
 ```
 pip install -r requirements.txt
 ```
- 
+
+To change settings the features application should use one uses environment variables, for instance:
+```
+export F_SETTINGS="features_app.settings.DevelopmentConfig"
+``` 
+Note: If none is set, DevelopmentConfig is used.
+
+3.)
 After setup you can run the development server with:
 ```
 ./manage.py runserver

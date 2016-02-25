@@ -1,3 +1,3 @@
-from flask.ext.mongoengine import MongoEngine
+from flask.ext.sqlalchemy import SQLAlchemy
 
-db = MongoEngine()
+db = SQLAlchemy()
