@@ -9,6 +9,7 @@ from clients.models.client import Client
 from users.models.user import User
 
 admin = Admin(
+    name="Features",
     index_view=FAdminIndexView(),
     base_template='my_master.html'
     )

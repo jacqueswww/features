@@ -2,6 +2,7 @@ import os
 
 from flask import Flask,  render_template, redirect
 from flask.ext.login import login_required, current_user
+from werkzeug.security import generate_password_hash
 
 
 def create_app():
@@ -12,6 +13,7 @@ def create_app():
     from features.features_views import features
     from product_areas.product_areas_views import product_areas
     from clients.clients_views import clients
+    from users.models.user import User
 
     app = Flask(__name__, static_url_path='', static_folder='../frontend', template_folder='../templates')
     app.config.from_object(os.environ.get('F_SETTINGS', 'features_app.settings.DevelopmentConfig'))
@@ -28,12 +30,16 @@ def create_app():
     # Create user loader function
     @login_manager.user_loader
     def load_user(user_id):
-        from users.models.user import User
         return db.session.query(User).get(user_id)
 
     @app.before_first_request
     def create_user():
         db.create_all()
+        test_user = User()
+        test_user.login="test_admin"
+        test_user.password=generate_password_hash("test")
+        test_user.is_super = True
+        db.session.add(test_user)
         db.session.commit()
 
     @app.route('/')
