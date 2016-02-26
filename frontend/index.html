@@ -1,20 +1,26 @@
 <!DOCTYPE html>
 <html ng-app="featuresApp">
-<head ng-app="featuresApp">
+<head>
 
     <link rel="stylesheet" href="/bower_components/bootstrap/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="/bower_components/bootstrap-datepicker/dist/css/bootstrap-datepicker.min.css" />
+    <link rel="stylesheet" href="/bower_components/angular-datepicker/dist/angular-datepicker.min.css" />
     <link rel="stylesheet" href="/css/main.css" />
 
-    <script src="bower_components/angular/angular.min.js"></script>
-    <script src="bower_components/angular-route/angular-route.min.js"></script>
+    <script src="/bower_components/angular/angular.min.js"></script>
+    <script src="/bower_components/angular-route/angular-route.min.js"></script>
+    <script src="/bower_components/angular-datepicker/dist/angular-datepicker.min.js"></script>
+   
+    <script src="/js/main.js"></script>
+    <script src="/js/controllers/features_controller.js"></script>
+    <script src="/js/controllers/feature_controller.js"></script>
+    <script src="/js/controllers/login_controller.js"></script>
 
-    <script src="js/main.js"></script>
-    <script src="js/controllers/features_controller.js"></script>
-    <script src="js/controllers/login_controller.js"></script>
-
+    <script src="/bower_components/jquery/dist/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.10.6/moment.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment-timezone/0.4.1/moment-timezone-with-data.js"></script>
 </head>
 <body ng-controller="mainController">
-
 <nav class="navbar navbar-inverse">
 <div class="container-fluid">
 <div class="navbar-header">

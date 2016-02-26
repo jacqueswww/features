@@ -8,7 +8,7 @@ class Feature(db.Model):
     id = db.Column(db.Integer, primary_key=True)
 
     title = db.Column(db.String(255))
-    descripton = db.Column(db.String())
+    descripton = db.Column(db.Text())
 
     client_id = db.Column(db.Integer, db.ForeignKey('clients.id'))
 

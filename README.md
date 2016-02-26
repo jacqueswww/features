@@ -3,7 +3,8 @@ Features - a simplistic feature tracker.
 
 Requirements:  
     - MongoDB  
-    - Python 3 interpreter and virtual environment  
+    - Python 3 interpreter and virtual environment
+    - Bower
 
 Development Setup:  
 
@@ -35,6 +36,14 @@ export F_SETTINGS="features_app.settings.DevelopmentConfig"
 Note: If none is set, DevelopmentConfig is used.
 
 3.)
+To install frontend external libraries bower (http://bower.io/) is required.
+
+```
+cd frontend/
+bower install
+```
+
+4.)
 After setup you can run the development server with:
 ```
 ./manage.py runserver
