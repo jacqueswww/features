@@ -10,12 +10,14 @@ from features.serializers.feature_serializer import FeatureSerializer
 features = Blueprint('features', __name__)
 
 
-@features.route('/', methods=['GET'])
-@features.route('/<pk>/', methods=['GET'])
+@features.route('/', methods=['GET', 'POST'])
+@features.route('/<pk>/', methods=['GET', 'PATCH'])
 def features_endpoint(pk=None):
+    print(request)
+    print(request.method)
     if request.method == 'GET':
-        if pk:
-            feature = FeatureQueries.get_by_id(pk)
+        if pk:  # is query for single instance.
+            feature = FeatureQueries.get_by_id(pk, queried_by=current_user)
             print(feature)
             print('ddddd')
             if feature:
@@ -23,15 +25,29 @@ def features_endpoint(pk=None):
             else:
                 return jsonify({'message': 'Feature not Found'}), 404
 
-        else: # is list all query.
-            results = FeatureQueries.get_all()
+        else:    # is query for all instances.
+            results = FeatureQueries.get_all(queried_by=current_user)
+            return jsonify({
+                "results": FeatureSerializer(many=True).dump(results).data
+                })
 
-            return jsonify(FeatureSerializer(many=True).dump(results).data)
-
-    if request.method == 'POST':
+    elif request.method == 'POST':
         params = request.get_json()
+        print(params)
+        print(current_user.id)
         feature = FeatureServices.create(params=params, action_by=current_user)
 
         return jsonify(FeatureSerializer().dump(feature).data)        
+
+    elif request.method == 'PATCH':
+        if pk:
+            feature = FeatureQueries.get_by_id(pk, queried_by=current_user)
+            if feature:
+                feature = FeatureServices.create(feature, params=params, action_by=current_user)
+                return jsonify(FeatureSerializer().dump(feature).data)
+            else:
+                return jsonify({'message': 'Feature not Found.'}), 404
+        else:
+                return jsonify({'message': 'Please provide a Feature ID to update.'}), 400
 
     return jsonify({'message': 'Misunderstood'}), 400

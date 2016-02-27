@@ -30,4 +30,4 @@ class User(db.Model):
 
     # Required for administrative interface
     def __str__(self):
-        return self.username
+        return self.login

@@ -10,7 +10,6 @@ class FeatureServices:
 
     @staticmethod
     def create(params, action_by, commit=True):
-        assert isinstance(action_by, User)
         assert isinstance(params, dict)
 
         feature = Feature()
@@ -29,7 +28,6 @@ class FeatureServices:
     @staticmethod
     def update(feature, params, action_by, commit=True):
         assert isinstance(feature, Feature)
-        assert isinstance(action_by, User)
         assert isinstance(params, dict)
 
         model_fields = get_fields(Feature)
