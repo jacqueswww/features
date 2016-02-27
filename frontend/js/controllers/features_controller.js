@@ -13,7 +13,11 @@ angular.module('featuresApp')
                         $scope.features = data.data.results;
                     },
                     function(error) { 
-                        console.log(error)
+                        if (error.status == 401) {
+                            $location.path('/login')
+                        } else {
+                            console.log(error)
+                        }
                     }
                 );
             }

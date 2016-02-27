@@ -1,6 +1,6 @@
 from flask import Blueprint, jsonify
 from flask import request
-from flask.ext.login import current_user
+from flask.ext.login import current_user, login_required
 
 from features.queries.feature_queries import FeatureQueries
 from features.services.feature_services import FeatureServices
@@ -12,9 +12,9 @@ features = Blueprint('features', __name__)
 
 @features.route('/', methods=['GET', 'POST'])
 @features.route('/<pk>/', methods=['GET', 'PATCH'])
+@login_required
 def features_endpoint(pk=None):
-    print(request)
-    print(request.method)
+
     if request.method == 'GET':
         if pk:  # is query for single instance.
             feature = FeatureQueries.get_by_id(pk, queried_by=current_user)

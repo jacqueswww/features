@@ -37,4 +37,6 @@ featuresApp.run(['$rootScope', '$route', function($rootScope, $route) {
 // create the controller and inject Angular's $scope
 featuresApp.controller('mainController', function($scope) {
     console.log('mainController')
+
+    $scope.logged_in = false;
 });

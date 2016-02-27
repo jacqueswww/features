@@ -14,8 +14,6 @@ class BaseConfig(object):
     WTF_CSRF_CHECK_DEFAULT = False
     WTF_CSRF_ENABLED = False
 
-    SECURITY_POST_LOGIN_VIEW = '/app'
-
 
 class ProductionConfig(BaseConfig):
     DEBUG = False

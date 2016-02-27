@@ -3,7 +3,7 @@ from marshmallow import Schema, fields
 
 class FeatureSerializer(Schema):
     client_name = fields.Function(lambda obj: obj.client.name)
-    created_by_name = fields.Function(lambda obj: obj.created_by.name)
+    created_by_name = fields.Function(lambda obj: "%s, %s" % (obj.created_by.last_name, obj.created_by.first_name))
     description = fields.Str()
     product_area_name = fields.Function(lambda obj: obj.product_area.name)
 

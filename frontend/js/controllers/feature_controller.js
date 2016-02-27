@@ -30,7 +30,9 @@ angular.module('featuresApp')
                         }
                     },
                     function(error) { 
-                        console.log(error)
+                        if (error.status == 401) {
+                            $location.path('/login')
+                        }
                 });
             }
 
