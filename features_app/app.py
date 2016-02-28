@@ -49,6 +49,7 @@ def create_app():
         db.create_all()
 
         if db.session.query(User).count() == 0:
+            # create super user.
             test_user = User()
             test_user.login="test_admin"
             test_user.first_name = "Joe"
@@ -58,6 +59,14 @@ def create_app():
             db.session.add(test_user)
             db.session.commit()
 
+            test_user = User()
+            test_user.login="test_normal"
+            test_user.first_name = "Bob"
+            test_user.last_name = "Average"
+            test_user.password=generate_password_hash("test")
+            test_user.is_super = False
+            db.session.add(test_user)
+            db.session.commit()
 
     @app.route('/')
     def home():
