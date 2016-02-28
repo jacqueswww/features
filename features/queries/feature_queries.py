@@ -14,12 +14,12 @@ class FeatureQueries:
     @classmethod
     def get_all(cls, queried_by):
         res = cls._set_join_options()
+        res = res.order_by('client_id', 'client_priority')
 
         if queried_by.is_super:  # super users see everything.
             res = res.all()
         else:
             res = res.filter_by(created_by_id=queried_by.id)
-
 
         return res
 
@@ -51,7 +51,20 @@ class FeatureQueries:
         Returns the highest current client priority.
         """
 
-        res = db.session.query(db.func.max(Feature.client_priority)).filter_by(client_id=client.id)
-        if not res:
+        res = db.session.query(db.func.max(Feature.client_priority)).filter_by(client_id=client.id).first()
+        if not res[0]:
             return 1
-        return res[0][0]
+
+        return res[0]
+
+    @staticmethod
+    def get_all_features_from_priority_position(client, position):
+        """
+        On ordered set of client priorities return all features from give position in list.
+        e.g.
+            if priority list is order list of priorites [0 .. n]
+            then any value from [p .. n] will be returned.
+        """
+        res = Feature.query.filter_by(client_id=client.id).filter(Feature.client_priority >= position)
+
+        return res
