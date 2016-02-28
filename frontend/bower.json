@@ -23,6 +23,7 @@
     "angular-route": "^1.5.0",
     "jquery": "^2.2.1",
     "angular-datepicker": "^2.0.3",
-    "moment": "^2.11.2"
+    "moment": "^2.11.2",
+    "angular-md": "^1.0.0"
   }
 }

@@ -15,6 +15,7 @@ class FeatureSerializer(Schema):
             'client_priority',
             'created_by_name',
             'date_created',
+            'description',
             'product_area_id',
             'product_area_name',
             'target_date',

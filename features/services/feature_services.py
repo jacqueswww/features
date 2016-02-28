@@ -25,10 +25,11 @@ class FeatureServices:
         set_fields_from_dict(feature, params, model_fields)
 
         target_date = params.get('target_date')
-        if 'T' in target_date:
-            feature.target_date = datetime.strptime(target_date.split('T')[0], '%Y-%m-%d').date()
-        else:
-            feature.target_date = datetime.strptime(target_date, '%Y-%m-%d').date()
+        if target_date:
+            if'T' in target_date:
+                feature.target_date = datetime.strptime(target_date.split('T')[0], '%Y-%m-%d').date()
+            else:
+                feature.target_date = datetime.strptime(target_date, '%Y-%m-%d').date()
 
         feature.created_by = action_by
 
@@ -89,10 +90,11 @@ class FeatureServices:
         set_fields_from_dict(feature, params, model_fields, exclude_fields=["date_created", "date_modified"])
 
         target_date = params.get('target_date')
-        if 'T' in target_date:
-            feature.target_date = datetime.strptime(target_date.split('T')[0], '%Y-%m-%d').date()
-        else:
-            feature.target_date = datetime.strptime(target_date, '%Y-%m-%d').date()
+        if target_date:
+            if'T' in target_date:
+                feature.target_date = datetime.strptime(target_date.split('T')[0], '%Y-%m-%d').date()
+            else:
+                feature.target_date = datetime.strptime(target_date, '%Y-%m-%d').date()
 
         feature.modified_by_id = action_by.id
         feature.date_modified = datetime.now()

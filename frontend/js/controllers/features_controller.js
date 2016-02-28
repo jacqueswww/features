@@ -40,6 +40,9 @@ angular.module('featuresApp')
             $scope.editFeature = function(feature_id) {
                 $location.path('/feature/' + feature_id);
             }
+            $scope.viewFeature = function(feature_id) {
+                $location.path('/feature/view/' + feature_id);
+            }
 
             $scope.fetchFeatures();
         }

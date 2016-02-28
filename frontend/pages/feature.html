@@ -39,12 +39,21 @@
         <div class="form-group">
             <label for="description"> Description </label>
             <textarea class="form-control" rows="10" id="description" ng-model="feature.description"></textarea>
+            <a target="_blank" href="https://github.com/adam-p/markdown-here/wiki/Markdown-Cheatsheet"> Markdown Guide </a>
         </div>
         <div class="">
             <button type="submit" class="btn btn-default" ng-click="submitFeature()" ng-show="type_message == 'Edit'"> Save Changes </button>
             <button type="submit" class="btn btn-default" ng-click="submitFeature()" ng-show="type_message == 'Add'"> Add Feature </button>
         </div>
     </div>
+    <div class="col-xs-8">
+        <br>
+        <label> Description Preview </label>
+        <div class="well">
+            <md ng-model="feature.description"></md>
+        </div>
+    </div>
+
     <div>
 
     </div>

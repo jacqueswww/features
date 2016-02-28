@@ -1,7 +1,7 @@
 API_URL = "/api/v1";
 
 
-var featuresApp = angular.module('featuresApp', ['ngRoute', 'datePicker']);
+var featuresApp = angular.module('featuresApp', ['ngRoute', 'datePicker', 'yaru22.md']);
 
 // configure our routes
 featuresApp.config(function($routeProvider) {
@@ -16,6 +16,11 @@ featuresApp.config(function($routeProvider) {
         .when('/feature/:featureId', {
             templateUrl : 'pages/feature.html',
             controller  : 'featureController',
+            title: ''
+        })
+        .when('/feature/view/:featureId', {
+            templateUrl : 'pages/feature_view.html',
+            controller  : 'featureViewController',
             title: ''
         })
         // route for the login page.
