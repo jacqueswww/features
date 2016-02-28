@@ -11,11 +11,29 @@ angular.module('featuresApp')
             };
             $scope.max_client_priority = 1;
 
-            console.log($routeParams)
-            if ($routeParams.featureId !== undefined && $routeParams.featureId == "create") {
-                $scope.type_message = "Add";
-            } else {
-                $scope.type_message = "Edit";
+            $scope.loadParams = function() {
+                if ($routeParams.featureId !== undefined && $routeParams.featureId == "create") {
+                    $scope.type_message = "Add";
+                } else {
+                    $scope.type_message = "Edit";
+                    $scope.fetchFeature($routeParams.featureId);
+                }
+            }
+
+            $scope.fetchFeature = function(feature_id) {
+                $http({
+                    method  : 'GET',
+                    url     : API_URL + '/features/' + feature_id,
+                    headers : { 'Content-Type': 'application/json' }
+                }).then(
+                    function(data) {
+                        $scope.feature = data.data;
+                    },
+                    function(error) {
+                        if (error.status == 401) {
+                            $location.path('/login')
+                        }
+                });
             }
 
             $scope.fetchClients = function() {
@@ -74,12 +92,14 @@ angular.module('featuresApp')
 
             $scope.submitFeature = function(){
                 var method_type = "POST";
+                var url = API_URL + '/features/';
                 if ($scope.type_message == "Edit") {
                     method_type = "PATCH";
+                    url += $scope.feature.id + "/";
                 }
                 $http({
                     method  : method_type,
-                    url     : API_URL + '/features/',
+                    url     : url, 
                     headers : { 'Content-Type': 'application/json' },
                     data    : JSON.stringify($scope.feature)
                 }).then(
@@ -91,7 +111,8 @@ angular.module('featuresApp')
                         console.log(error)
                 });
             }
-
+            
+            $scope.loadParams();
             $scope.fetchClients();
             $scope.fetchProductAreas();
         }

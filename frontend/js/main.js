@@ -6,23 +6,25 @@ var featuresApp = angular.module('featuresApp', ['ngRoute', 'datePicker']);
 // configure our routes
 featuresApp.config(function($routeProvider) {
     $routeProvider
-        // route for the home page
+        // route for the home page.
         .when('/features', {
             templateUrl : 'pages/features.html',
             controller  : 'featuresController',
-            title: 'features'
+            title: 'List Features'
         })
+        // route for feature create and edit.
         .when('/feature/:featureId', {
             templateUrl : 'pages/feature.html',
             controller  : 'featureController',
-            title: 'features'
+            title: ''
         })
-        // route for the login page
+        // route for the login page.
         .when('/login', {
             templateUrl : 'pages/login.html',
             controller  : 'loginController',
             title: 'Login'
-        }).otherwise({
+        })
+        .otherwise({ // TODO: create a 404 page.
             redirectTo: '/features'
         })
 });

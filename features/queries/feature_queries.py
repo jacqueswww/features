@@ -53,25 +53,27 @@ class FeatureQueries:
 
         res = db.session.query(db.func.max(Feature.client_priority)).filter_by(client_id=client.id).first()
         if not res[0]:
-            return 1
+            return 0
+
+        print('max_client_prioriyt => ' + str(res[0]))
 
         return res[0]
 
     @staticmethod
-    def get_by_client_priority_subset(client, start_position, end_position, direction):
+    def get_by_client_priority_subset(client, start_position, end_position):
         """
         On ordered set of client priorities return all features from give position in list.
         e.g.
-            if client priority list is [0,n]
-
-            given position p, direction 
+            if client priority list is orderd by priority 0 .. n
+            [start_position, end_position] will be returned.
         """
 
-        res = Feature.query.filter_by(client_id=client.id).filter(
-            db._and(
-                Feature.client_priority >= start_position,
+        res = Feature.query.filter_by(
+                client_id=client.id
+            ).filter(
+                Feature.client_priority >= start_position
+            ).filter(
                 Feature.client_priority <= end_position
-                )
             )
 
         return res

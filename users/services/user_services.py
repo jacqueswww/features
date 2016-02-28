@@ -11,6 +11,7 @@ class UserServices:
 
         if user is not None:  # cool, we found a user.
             if check_password_hash(user.password, password):  # does the password match.
+                login_user(user)
                 return True
         else:
             check_password_hash(password, password)  # Say no timing attacks.

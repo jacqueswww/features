@@ -31,8 +31,6 @@ def features_endpoint(pk=None):
 
     elif request.method == 'POST':
         params = request.get_json()
-        print(params)
-        print(current_user.id)
         feature = FeatureServices.create(params=params, action_by=current_user)
 
         return jsonify(FeatureSerializer().dump(feature).data)
@@ -48,9 +46,11 @@ def features_endpoint(pk=None):
         
     elif request.method == 'PATCH':
         if pk:
+            params = request.get_json()
             feature = FeatureQueries.get_by_id(pk, queried_by=current_user)
             if feature:
-                feature = FeatureServices.create(feature, params=params, action_by=current_user)
+                feature = FeatureServices.update(feature, params=params, action_by=current_user)
+
                 return jsonify(FeatureSerializer().dump(feature).data)
             else:
                 return jsonify({'message': 'Feature not Found.'}), 404

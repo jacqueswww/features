@@ -25,10 +25,10 @@ class FeatureServices:
         set_fields_from_dict(feature, params, model_fields)
 
         target_date = params.get('target_date')
-        if target_date:
+        if 'T' in target_date:
             feature.target_date = datetime.strptime(target_date.split('T')[0], '%Y-%m-%d').date()
         else:
-            feature.target_date = datetime.now().date()
+            feature.target_date = datetime.strptime(target_date, '%Y-%m-%d').date()
 
         feature.created_by = action_by
 
@@ -46,30 +46,30 @@ class FeatureServices:
         """
         max_client_priority = FeatureQueries.get_max_client_priority_client(client)
 
-        # if our client priority is at the end
+        # if our client priority is at the end, don't shift anything.
         if new_client_priority > max_client_priority:
             return None
 
-        if new_client_priority < old_client_priority:
-            # get all features from position, then increment their priorities.
+        if new_client_priority <= old_client_priority:
+            print('shifting down')
             features = FeatureQueries.get_by_client_priority_subset(
                     client=client,
                     start_position=new_client_priority,
-                    end_postion=old_client_priority
+                    end_position=old_client_priority
                 )
             features.update({
                 Feature.client_priority: Feature.client_priority + 1  # shift it down.
                 })
-        elif new_client_priority > old_client_priority:
+        elif new_client_priority >= old_client_priority:
+            print('shifting up')
             features = FeatureQueries.get_by_client_priority_subset(
                     client=client,
                     start_position=old_client_priority,
-                    end_postion=new_client_priority
+                    end_position=new_client_priority
                 )
             features.update({
                 Feature.client_priority: Feature.client_priority - 1 # shift it up.
                 })
-
 
         db.session.commit()
         return None
@@ -86,7 +86,13 @@ class FeatureServices:
             cls.shift_client_priority(feature.client, old_client_priority, params.get('client_priority', 1), action_by)
 
         model_fields = get_fields(Feature)
-        set_fields_from_dict(feature, params, model_fields)
+        set_fields_from_dict(feature, params, model_fields, exclude_fields=["date_created", "date_modified"])
+
+        target_date = params.get('target_date')
+        if 'T' in target_date:
+            feature.target_date = datetime.strptime(target_date.split('T')[0], '%Y-%m-%d').date()
+        else:
+            feature.target_date = datetime.strptime(target_date, '%Y-%m-%d').date()
 
         feature.modified_by_id = action_by.id
         feature.date_modified = datetime.now()

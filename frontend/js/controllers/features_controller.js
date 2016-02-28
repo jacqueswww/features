@@ -31,10 +31,14 @@ angular.module('featuresApp')
                     function(data) {
                         $scope.fetchFeatures();
                     },
-                    function(error) { 
+                    function(error) {
                         console.log(error);
                     }
                 ); 
+            }
+
+            $scope.editFeature = function(feature_id) {
+                $location.path('/feature/' + feature_id);
             }
 
             $scope.fetchFeatures();
