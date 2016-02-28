@@ -1,6 +1,7 @@
 from features.models.feature import Feature
 from features_app.db import db
 
+
 class FeatureQueries:
 
     def _set_join_options():
@@ -31,4 +32,20 @@ class FeatureQueries:
         else:
             res = Feature.query.filter_by(created_by_id=queried_by, id=_id)[0]
 
+        return res
+
+    @classmethod
+    def get_all_by_client(cls, client, order_by_client_priority=False):
+        res = cls._set_join_options()
+
+        res = Feature.query.filter_by(client_id=client.id)
+
+        if order_by_client_priority:
+            res.order_by(Feature.client_priority)
+
+        return res
+
+    @classmethod
+    def get_max_client_priority_client(client):
+        res = db.session.query(db.func.max(Feature.client_priority))
         return res

@@ -6,7 +6,9 @@ angular.module('featuresApp')
             $scope.clients = [];
             $scope.product_areas = [];
             $scope.type_message = "";
-            $scope.feature = {};
+            $scope.feature = {
+                'client_priority': 1
+            };
 
             console.log($routeParams)
             if ($routeParams.featureId !== undefined && $routeParams.featureId == "create") {

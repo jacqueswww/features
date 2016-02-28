@@ -41,7 +41,7 @@ def features_endpoint(pk=None):
         if pk:  # is query for single instance.
             feature = FeatureQueries.get_by_id(pk, queried_by=current_user)
             if feature:
-                if FeatureServices.delete(feature):
+                if FeatureServices.delete(feature, action_by=current_user):
                     return jsonify({'message': 'Done'}), 200
             else:
                 return jsonify({'message': 'Feature not Found'}), 404
