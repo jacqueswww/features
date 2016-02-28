@@ -41,6 +41,7 @@ class FeatureServices:
     def shift_client_priority_create(cls, client, new_client_priority, action_by):
         """
         Given a position in client_priority list, shift up other features so there is a position free.
+        Seen as a shift down.
         """
         max_client_priority = FeatureQueries.get_max_client_priority_client(client)
 
@@ -67,9 +68,11 @@ class FeatureServices:
         assert isinstance(feature, Feature)
         assert isinstance(params, dict)
 
-        # new_client_priority = params.get('client_priority')
-        # if new_client_priority !
-        #     cls.shift_client_priority()
+        new_client_priority = params.get('client_priority')
+        if new_client_priority != Feature.client_priority:  # busy changing the priority.
+            # if new_client_priority > feature.client_priority: # we must shift the list down.
+            # cls.shift_client_priority_update(feature.client, new_client_priority, action_by)  # first we shift it up.
+            pass
 
         model_fields = get_fields(Feature)
         set_fields_from_dict(feature, params, model_fields)
