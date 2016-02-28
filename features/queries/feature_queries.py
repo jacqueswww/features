@@ -58,13 +58,20 @@ class FeatureQueries:
         return res[0]
 
     @staticmethod
-    def get_all_features_from_priority_position(client, position):
+    def get_by_client_priority_subset(client, start_position, end_position, direction):
         """
         On ordered set of client priorities return all features from give position in list.
         e.g.
-            if priority list is order list of priorites [0 .. n]
-            then any value from [p .. n] will be returned.
+            if client priority list is [0,n]
+
+            given position p, direction 
         """
-        res = Feature.query.filter_by(client_id=client.id).filter(Feature.client_priority >= position)
+
+        res = Feature.query.filter_by(client_id=client.id).filter(
+            db._and(
+                Feature.client_priority >= start_position,
+                Feature.client_priority <= end_position
+                )
+            )
 
         return res

@@ -18,7 +18,8 @@ class FeatureServices:
 
         # shift the client priority up so we can save into the proper position.
         client = ClientQueries.get_by_id(params.get('client_id'))
-        cls.shift_client_priority_create(client, params.get('client_priority', 1), action_by)
+        max_client_priority = FeatureQueries.get_max_client_priority_client(client)
+        cls.shift_client_priority(client, max_client_priority, params.get('client_priority', 1), action_by)
 
         model_fields = get_fields(Feature)
         set_fields_from_dict(feature, params, model_fields)
@@ -38,10 +39,10 @@ class FeatureServices:
         return feature
 
     @classmethod
-    def shift_client_priority_create(cls, client, new_client_priority, action_by):
+    def shift_client_priority(cls, client, old_client_priority, new_client_priority, action_by):
         """
         Given a position in client_priority list, shift up other features so there is a position free.
-        Seen as a shift down.
+        Can either shift list up or down.
         """
         max_client_priority = FeatureQueries.get_max_client_priority_client(client)
 
@@ -49,15 +50,25 @@ class FeatureServices:
         if new_client_priority > max_client_priority:
             return None
 
-        # get all features from position, then increment their priorities.
-        features = FeatureQueries.get_all_features_from_priority_position(
-                client=client,
-                position=new_client_priority
-            )
-
-        features.update({
-            Feature.client_priority: Feature.client_priority + 1
-            })
+        if new_client_priority < old_client_priority:
+            # get all features from position, then increment their priorities.
+            features = FeatureQueries.get_by_client_priority_subset(
+                    client=client,
+                    start_position=new_client_priority,
+                    end_postion=old_client_priority
+                )
+            features.update({
+                Feature.client_priority: Feature.client_priority + 1  # shift it down.
+                })
+        elif new_client_priority > old_client_priority:
+            features = FeatureQueries.get_by_client_priority_subset(
+                    client=client,
+                    start_position=old_client_priority,
+                    end_postion=new_client_priority
+                )
+            features.update({
+                Feature.client_priority: Feature.client_priority - 1 # shift it up.
+                })
 
 
         db.session.commit()
@@ -68,11 +79,11 @@ class FeatureServices:
         assert isinstance(feature, Feature)
         assert isinstance(params, dict)
 
-        new_client_priority = params.get('client_priority')
-        if new_client_priority != Feature.client_priority:  # busy changing the priority.
-            # if new_client_priority > feature.client_priority: # we must shift the list down.
-            # cls.shift_client_priority_update(feature.client, new_client_priority, action_by)  # first we shift it up.
-            pass
+        old_client_priority = feature.client_priority
+        new_client_priority = params.get('client_priority', feature.client_priority)
+
+        if old_client_priority != new_client_priority:
+            cls.shift_client_priority(feature.client, old_client_priority, params.get('client_priority', 1), action_by)
 
         model_fields = get_fields(Feature)
         set_fields_from_dict(feature, params, model_fields)
