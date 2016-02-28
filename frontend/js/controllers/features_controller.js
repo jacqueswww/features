@@ -3,7 +3,7 @@ angular.module('featuresApp')
         function($scope, $http, $location, $window) {
             $scope.features = [];
 
-            $scope.featchFeatures = function() {
+            $scope.fetchFeatures = function() {
                 $http({
                     method  : 'GET',
                     url     : API_URL + '/features/',
@@ -22,6 +22,21 @@ angular.module('featuresApp')
                 );
             }
 
-            $scope.featchFeatures();
+            $scope.deleteFeature = function(feature_id) {
+                $http({
+                    method  : 'DELETE',
+                    url     : API_URL + '/features/' + feature_id + "/",
+                    headers : { 'Content-Type': 'application/json' }
+                }).then(
+                    function(data) {
+                        $scope.fetchFeatures();
+                    },
+                    function(error) { 
+                        console.log(error);
+                    }
+                ); 
+            }
+
+            $scope.fetchFeatures();
         }
 ]);

@@ -11,15 +11,13 @@ features = Blueprint('features', __name__)
 
 
 @features.route('/', methods=['GET', 'POST'])
-@features.route('/<pk>/', methods=['GET', 'PATCH'])
+@features.route('/<pk>/', methods=['GET', 'PATCH', 'DELETE'])
 @login_required
 def features_endpoint(pk=None):
 
     if request.method == 'GET':
         if pk:  # is query for single instance.
             feature = FeatureQueries.get_by_id(pk, queried_by=current_user)
-            print(feature)
-            print('ddddd')
             if feature:
                 return jsonify(FeatureSerializer().dump(feature).data)
             else:
@@ -37,8 +35,17 @@ def features_endpoint(pk=None):
         print(current_user.id)
         feature = FeatureServices.create(params=params, action_by=current_user)
 
-        return jsonify(FeatureSerializer().dump(feature).data)        
+        return jsonify(FeatureSerializer().dump(feature).data)
 
+    elif request.method == "DELETE":
+        if pk:  # is query for single instance.
+            feature = FeatureQueries.get_by_id(pk, queried_by=current_user)
+            if feature:
+                if FeatureServices.delete(feature):
+                    return jsonify({'message': 'Done'}), 200
+            else:
+                return jsonify({'message': 'Feature not Found'}), 404
+        
     elif request.method == 'PATCH':
         if pk:
             feature = FeatureQueries.get_by_id(pk, queried_by=current_user)

@@ -22,6 +22,7 @@
     "bootstrap-datepicker": "^1.6.0",
     "angular-route": "^1.5.0",
     "jquery": "^2.2.1",
-    "angular-datepicker": "^2.0.3"
+    "angular-datepicker": "^2.0.3",
+    "moment": "^2.11.2"
   }
 }

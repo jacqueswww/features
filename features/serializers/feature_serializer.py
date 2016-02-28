@@ -12,6 +12,7 @@ class FeatureSerializer(Schema):
             'id',
             'client_id',
             'client_name',
+            'client_priority',
             'created_by_name',
             'date_created',
             'product_area_id',

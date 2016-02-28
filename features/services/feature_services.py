@@ -38,3 +38,14 @@ class FeatureServices:
             feature.date_modified = datetime.datetime.now()
 
         return feature
+
+    @staticmethod
+    def delete(feature, commit=True):
+        assert isinstance(feature, Feature)
+
+        db.session.delete(feature)
+
+        if commit:
+            db.session.commit()
+
+        return True
