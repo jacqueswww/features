@@ -9,6 +9,7 @@ angular.module('featuresApp')
             $scope.feature = {
                 'client_priority': 1
             };
+            $scope.max_client_priority = 1;
 
             console.log($routeParams)
             if ($routeParams.featureId !== undefined && $routeParams.featureId == "create") {
@@ -29,16 +30,30 @@ angular.module('featuresApp')
                         // set default option on select.
                         if ($scope.clients.length > 0) {
                             $scope.feature.client_id = $scope.clients[0].id;
+                            $scope.max_client_priority = $scope.clients[0].max_client_priority + 1;
                         }
                     },
-                    function(error) { 
+                    function(error) {
                         if (error.status == 401) {
                             $location.path('/login')
                         }
                 });
             }
 
-            $scope.featchProductAreas = function() {
+            $scope.setMaxClientPriority = function(client_id) {
+                console.log(client_id);
+                angular.forEach($scope.clients, function(client, key) {
+                    if (client.id == client_id) {
+                        $scope.max_client_priority = client.max_client_priority + 1;
+                        if ($scope.feature.client_priority > $scope.max_client_priority) {
+                            $scope.feature.client_priority = $scope.max_client_priority;
+                        }
+                        return;
+                    }
+                });
+            }
+
+            $scope.fetchProductAreas = function() {
                 $http({
                     method  : 'GET',
                     url     : API_URL + '/product_areas/',
@@ -78,6 +93,6 @@ angular.module('featuresApp')
             }
 
             $scope.fetchClients();
-            $scope.featchProductAreas();
+            $scope.fetchProductAreas();
         }
 ]);

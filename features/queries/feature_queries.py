@@ -45,7 +45,13 @@ class FeatureQueries:
 
         return res
 
-    @classmethod
+    @staticmethod
     def get_max_client_priority_client(client):
-        res = db.session.query(db.func.max(Feature.client_priority))
-        return res
+        """
+        Returns the highest current client priority.
+        """
+
+        res = db.session.query(db.func.max(Feature.client_priority)).filter_by(client_id=client.id)
+        if not res:
+            return 1
+        return res[0][0]
