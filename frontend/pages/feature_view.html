@@ -1,55 +1,54 @@
 <div class="container">
-    <div class="row">
+    
     <div class="col-xs-12">
-        <div class="">
+        <div class="row">
             <br>
             <div>
-                <h2> {{ feature.title }} </h2>
+                <h1> {{ feature.title }} </h1>
             </div>
         </div>
-        <div class="">
+        <br><div class="row">
             <label for="client"> Client </label>
             <div>
                 {{ feature.client_name }}
             </div>
         </div>
-        <div class="">  
+        <br><div class="row">
             <label for="client_priority"> Client Priority </label>
             <div>
                 {{ feature.client_priority }}
             </div>
         </div>
-        <div class="">  
+        <br><div class="row">  
             <label for="target_date"> Target Date </label>
             <div>
                 {{ feature.target_date }}
             </div>
         </div>
-        <div class="">
+        <br><div class="row">
             <label for="ticket_url"> Ticket URL </label>
             <div>
-                <a href="{{ feature.ticket_url }}"> {{ feature.ticket_url }} </a>
+                <a target="_blank" href="{{ feature.ticket_url }}"> {{ feature.ticket_url }} </a>
             </div>
         </div>
-        <div class="">  
+        <br><div class="row">  
             <label> Product Area </label>
             <div>
-                {{ feature.product_area }}
+                {{ feature.product_area_name }}
             </div>
         </div>
-        <div class="row">
+        <br><div class="row">
+            <label> Description </label><br>
             <div class="col-xs-8 well">
-                <br>
-                <label> Description Preview </label>
-                <md ng-model="feature.description"></md>
+                <md  ng-model="feature.description"></md>
             </div>
         </div>
-        <div class="">
+        <br><div class="row">
             <a type="submit" class="btn btn-default" href="#/features/"> Back to features </a>
-            <a type="submit" class="btn btn-default" href="#/feature/{{ feature.id }}"> Edit Feature </a>
+            <a type="submit" class="btn btn-default" href="#/feature/{{ feature.id }}"> Edit feature </a>
         </div>
     </div>
     <div>
 
-    </div>
+    
 </div>

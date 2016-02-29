@@ -44,6 +44,30 @@ angular.module('featuresApp')
                 $location.path('/feature/view/' + feature_id);
             }
 
+            $scope.clientPriorityMove = function(feature, direction) {
+
+                if (feature.client_priority > 1 && direction == "up") {
+                    var new_client_priority = feature.client_priority - 1;
+                } else if (direction == "down") {
+                    var new_client_priority = feature.client_priority + 1
+                }
+
+                var method_type = "PATCH";
+                var url = API_URL + '/features/' + feature.id + "/";
+                $http({
+                    method  : method_type,
+                    url     : url, 
+                    headers : { 'Content-Type': 'application/json' },
+                    data    : JSON.stringify({'client_priority': new_client_priority})
+                }).then(
+                    function(data) {
+                        $scope.fetchFeatures();
+                    },
+                    function(error) { 
+                        console.log(error)
+                });
+            }
+
             $scope.fetchFeatures();
         }
 ]);
