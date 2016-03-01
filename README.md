@@ -29,7 +29,7 @@ source features/bin/activate
 pip install -r requirements.txt
 ```
 
-To change settings the features application should use one uses environment variables, for instance:
+To change settings the features application should use one uses environment variables, for instance (this can also be set in your virtual environment's bin/activate file, to make setting permanent within the virtual environment):
 ```
 export F_SETTINGS="features_app.settings.DevelopmentConfig"
 ``` 
