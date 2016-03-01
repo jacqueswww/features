@@ -105,13 +105,21 @@ class FeatureServices:
             old_client_priority = max_client_priority
             old_master_priority = max_master_priority
 
-        new_master_priority = params.get('master_priority', 1)
         new_client_priority = params.get('client_priority', 1)
+        new_master_priority = params.get('master_priority', 1)
+        
+        # Allow allow to queue priority at the tail.
+        if new_master_priority > max_master_priority:
+            new_master_priority = max_master_priority + 1
 
+        if new_client_priority > max_client_priority:
+            new_client_priority = max_client_priority + 1
+
+        # Only shift a specific priority queue at a time.
         if is_update:
-            if new_client_priority == old_client_priority:
+            if 'client_priority' not in params:
                 run_client_shift = False
-            if new_master_priority == old_master_priority:
+            if 'master_priority' not in params:
                 run_master_shift = False
 
         if run_client_shift:

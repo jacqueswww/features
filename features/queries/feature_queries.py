@@ -17,7 +17,7 @@ class FeatureQueries:
         res = cls._set_join_options()
 
         if queried_by.is_super:
-            res = res.order_by('master_priority')
+            res = res.order_by('master_priority', 'client_id', 'client_priority')
         else:
             res = res.order_by('client_id', 'client_priority')
 
