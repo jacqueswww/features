@@ -20,6 +20,12 @@
                 <input type="number" id="client_priority" class="form-control" min="1" max="{{ max_client_priority }}" placeholder="1" ng-model="feature.client_priority">
             </div>
         </div>
+        <div class="input-group" ng-show="isSuper">
+            <label for="master_priority"> Master Priority </label>
+            <div>
+                <input type="number" id="master_priority" class="form-control" min="1" max="9999" placeholder="1" ng-model="feature.master_priority">
+            </div>
+        </div>
         <div class="input-group">  
             <label for="target_date"> Target Date </label>
             <div>

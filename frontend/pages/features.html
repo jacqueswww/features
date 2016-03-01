@@ -14,6 +14,7 @@
                 <th>Title</th>
                 <th>Client</th>
                 <th>Client Priority</th>
+                <th>Master Priority </th>
                 <th>Product Area</th>
                 <th>Created By</th>
                 <th>Target Date</th>
@@ -25,15 +26,36 @@
                 <td> {{ feature.title }} </td>
                 <td> {{ feature.client_name }} </td>
                 <td> {{ feature.client_priority }} </td>
+                <td> {{ feature.master_priority }} </td>
                 <td> {{ feature.product_area_name }} </td>
                 <td> {{ feature.created_by_name }} </td>
                 <td data-toggle="tooltip" title="{{ feature.target_date | date: 'fullDate' }}" > {{ feature.target_date | date: 'shortDate'}} </td>
                 <td> 
-                <button type="button" class="btn btn-default" title="Delete Feature" ng-click="deleteFeature(feature.id)"><i class="glyphicon glyphicon-trash"></i></button>
-                <button type="button" class="btn btn-default" title="Edit Feature" ng-click="editFeature(feature.id)"><i class="glyphicon glyphicon-edit"></i></button>
-                <button type="button" class="btn btn-default" title="View Feature" ng-click="viewFeature(feature.id)"><i class="glyphicon glyphicon glyphicon-eye-open"></i></button>
-                <button type="button" class="btn btn-default" title="Move Client Priority Up" ng-click="clientPriorityMove(feature, 'up')"><i class="glyphicon glyphicon glyphicon-arrow-up"></i></button>
-                <button type="button" class="btn btn-default" title="Move Client Priority Down" ng-click="clientPriorityMove(feature, 'down')"><i class="glyphicon glyphicon glyphicon-arrow-down"></i></button>
+                <button type="button" class="btn btn-default" title="Delete Feature" ng-click="deleteFeature(feature.id)">
+                    <i class="glyphicon glyphicon-trash"></i>
+                </button>
+                <button type="button" class="btn btn-default" title="Edit Feature" ng-click="editFeature(feature.id)">
+                    <i class="glyphicon glyphicon-edit"></i>
+                </button>
+                <button type="button" class="btn btn-default" title="View Feature" ng-click="viewFeature(feature.id)">
+                    <i class="glyphicon glyphicon glyphicon-eye-open"></i>
+                </button>
+                <button type="button" class="btn btn-default" title="Move Client Priority Up" ng-click="clientPriorityMove(feature, 'up')">
+                    <i class="glyphicon glyphicon glyphicon-arrow-up"></i>
+                </button>
+                <button type="button" class="btn btn-default" title="Move Client Priority Down" ng-click="clientPriorityMove(feature, 'down')">
+                    <i class="glyphicon glyphicon glyphicon-arrow-down"></i>
+                </button>
+                <!-- master priority buttons -->
+                <button type="button" class="btn btn-secondary" title="Move Master Priority Up" 
+                        ng-show="isSuper" ng-click="masterPriorityMove(feature, 'up')">
+                    <i class="glyphicon glyphicon glyphicon-arrow-up"></i>
+                </button>
+                <button type="button" class="btn btn-secondary" title="Move Master Priority Down"
+                        ng-show="isSuper" ng-click="masterPriorityMove(feature, 'down')">
+                    <i class="glyphicon glyphicon glyphicon-arrow-down"></i>
+                </button>
+                
                 </td>
                 <!-- <td> <code> {{ feature }} </code> </td> -->
             </tr> 

@@ -12,7 +12,6 @@ clients = Blueprint('clients', __name__)
 @login_required
 def clients_endpoint():
     results = ClientQueries.get_all()
-    print(results)
     
     return  jsonify({
         "results": ClientSerializer(many=True).dump(results).data

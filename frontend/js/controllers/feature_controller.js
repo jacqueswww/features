@@ -7,9 +7,11 @@ angular.module('featuresApp')
             $scope.product_areas = [];
             $scope.type_message = "";
             $scope.feature = {
-                'client_priority': 1
+                'client_priority': 1,
+                'master_priority': 1
             };
             $scope.max_client_priority = 1;
+            $scope.isSuper = false;
 
             $scope.loadParams = function() {
                 if ($routeParams.featureId !== undefined && $routeParams.featureId == "create") {
@@ -112,8 +114,19 @@ angular.module('featuresApp')
                 });
             }
             
+            $scope.fetchUserProfile = function() {
+                $http({
+                    method  : 'GET',
+                    url     : API_URL + '/users/profile',
+                    headers : { 'Content-Type': 'application/json' }
+                }).then(function(data) {
+                    $scope.isSuper = data.data.is_super;
+                });
+            } 
+
             $scope.loadParams();
             $scope.fetchClients();
             $scope.fetchProductAreas();
+            $scope.fetchUserProfile();
         }
 ]);

@@ -14,6 +14,7 @@ class Feature(db.Model):
     client = db.relationship("Client", backref="features")
 
     client_priority = db.Column(db.Integer)
+    master_priority = db.Column(db.Integer)
     target_date = db.Column(db.Date(), default=func.now())
 
     product_area_id = db.Column(db.Integer, db.ForeignKey('product_areas.id'))
