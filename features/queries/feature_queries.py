@@ -41,14 +41,11 @@ class FeatureQueries:
 
         if queried_by.is_super:
             res = Feature.query.get(_id)
-            print('......')
-            print(res)
-            print('......')
             return res
         else:
-            res = Feature.query.filter_by(created_by_id=queried_by, id=_id).first()
+            res = Feature.query.filter_by(created_by_id=queried_by.id, id=_id).first()
             if res:
-                return res[0]
+                return res
             else:
                 return None
 
