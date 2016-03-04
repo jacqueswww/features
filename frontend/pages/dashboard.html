@@ -68,7 +68,7 @@
             </div>
         </div>
         <div class="row">
-                <div class="col-xs-4 " ng-repeat="features in productAreaFeatures ">
+                <div class="col-xs-4 " ng-repeat="features in productAreaFeatures | toArray">
                 <div class="panel panel-default">
                     <div class="panel-heading"> {{  features.$key }} </div>
                     <ul class="list-group">
