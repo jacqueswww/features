@@ -1,4 +1,5 @@
 from features.models.feature import Feature
+from clients.models.client import Client
 from features_app.db import db
 
 
@@ -14,10 +15,14 @@ class FeatureQueries:
         return res
     @classmethod
     def get_all(cls, queried_by):
+        print("queried_by")
+        print(queried_by)
+        print(type(queried_by))
+        print("queried_by")
         res = cls._set_join_options()
 
         if queried_by.is_super:
-            res = res.order_by('master_priority', 'client_id', 'client_priority')
+            res = res.order_by('master_priority')
         else:
             res = res.order_by('client_id', 'client_priority')
 

@@ -1,0 +1,65 @@
+<div class="container">
+    <div class="" >
+        <div class="row">
+            <div class="col-xs-12">
+                <h4 class="pull-left"> Features Request Dashboard </h4>
+                <div class="pull-right">
+                    <a type="submit" class="btn btn-default " href="#/feature/create"> Add Feature Request </a>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+        <!-- <pre> {{ masterFeatureList }} </pre> -->
+            <div class="col-xs-4" ng-show="isSuper">
+                <div class="panel panel-default">
+                    <div class="panel-heading"> Master Priority List </div>
+                    <ol class="list-group"> 
+                        <li class="list-group-item" ng-repeat="masterfeature in masterFeatureList"> 
+                            {{ masterfeature.title }}
+                            <a title="View Feature" href="#/feature/view/{{masterfeature.id}}">
+                                <i class="glyphicon glyphicon glyphicon-eye-open pull-right"></i>
+                            </a>
+                            <a title="Edit Feature" href="#/feature/{{masterfeature.id}}">
+                                <i class="glyphicon glyphicon glyphicon-edit pull-right"></i>
+                            </a>
+                            <a class="pull-right" title="Move Client Priority Down" 
+                               ng-click="masterPriorityMove(masterfeature, 'down')">
+                                <i class="glyphicon glyphicon glyphicon-arrow-down"></i>
+                            </a>
+                            <a class="pull-right" title="Move Client Priority Up" 
+                                ng-click="masterPriorityMove(masterfeature, 'up')">
+                                <i class="glyphicon glyphicon glyphicon-arrow-up"></i>
+                            </a>
+                        </li>
+                    <ol>
+                </div>
+            </div>
+            <div class="col-xs-4 " ng-repeat="features in clientFeatures | toArray | orderBy: '$key' ">
+                <div class="panel panel-default">
+                    <div class="panel-heading"> {{  features.$key }} </div>
+                    <ol class="list-group">
+                        <!-- <pre>{{features}}</pre> -->
+                        <li class="list-group-item" ng-repeat="feature in features | orderBy: 'client_priority'"> 
+                            <span>{{ feature.title }} </span>
+                           <a class="pull-right" title="View Feature" href="#/feature/view/{{feature.id}}">
+                                <i class="glyphicon glyphicon glyphicon-eye-open pull-right"></i>
+                            </a>
+                            <a class="pull-right" title="Edit Feature" href="#/feature/{{feature.id}}">
+                                <i class="glyphicon glyphicon glyphicon-edit pull-right"></i>
+                            </a>
+                            <a class="pull-right" title="Move Client Priority Down" 
+                               ng-click="clientPriorityMove(feature, 'down')">
+                                <i class="glyphicon glyphicon glyphicon-arrow-down"></i>
+                            </a>
+                            <a class="pull-right" title="Move Client Priority Up" 
+                                ng-click="clientPriorityMove(feature, 'up')">
+                                <i class="glyphicon glyphicon glyphicon-arrow-up"></i>
+                            </a>
+                           
+                        </li>
+                    <ol>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

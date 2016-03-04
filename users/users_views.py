@@ -3,7 +3,7 @@ from flask import request
 from flask.ext.login import current_user
 
 
-from users.services.user_services import UserServices
+from users.services.user_services import UserServices, UserServicesException
 
 
 users = Blueprint('users', __name__)
@@ -25,6 +25,30 @@ def users_endpoint():
                 return jsonify({'message': 'You are logged in now.'}), 200
             else:
                 return jsonify({'message': 'Login failed.'}), 401
+
+    return jsonify({'message': 'Misunderstood'}), 400
+
+
+@users.route('/register', methods=['POST'])
+def users_register():
+
+    if request.method == 'POST':
+        params = request.get_json()
+
+        if all(pkey in params for pkey in ("username", "password", "first_name", "last_name", "email")):  # must have user and password keys.
+            try:
+                res = UserServices.register(
+                    params=params
+                    )
+            except UserServicesException as e:
+                return jsonify({'message': str(e)}), 401
+
+            if res:
+                return jsonify({'message': 'You are registerd now.'}), 200
+            else:
+                return jsonify({'message': 'Registration failed.'}), 400
+        else:
+            jsonify({'message': 'Please fill in all fields.'}), 400
 
     return jsonify({'message': 'Misunderstood'}), 400
 

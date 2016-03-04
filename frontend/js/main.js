@@ -29,6 +29,18 @@ featuresApp.config(function($routeProvider) {
             controller  : 'loginController',
             title: 'Login'
         })
+        // route for the login page.
+        .when('/register', {
+            templateUrl : 'pages/register.html',
+            controller  : 'registerController',
+            title: 'Register'
+        })
+        // route for the dashboard page.
+        .when('/dashboard', {
+            templateUrl : 'pages/dashboard.html',
+            controller  : 'dashboardController',
+            title: 'Dashboard'
+        })
         .otherwise({ // TODO: create a 404 page.
             redirectTo: '/features'
         })
@@ -47,3 +59,13 @@ featuresApp.controller('mainController', function($scope) {
 
     $scope.logged_in = false;
 });
+
+// This filter converts an associative array to an array, so we can sort it.
+featuresApp.filter('toArray', function() { return function(obj) { 
+    if (!(obj instanceof Object)) return obj;
+    res =  _.map(obj, function(val, key) {
+        return Object.defineProperty(val, '$key', {__proto__: null, value: key});
+    });
+    // console.log(res)
+    return res;
+}});

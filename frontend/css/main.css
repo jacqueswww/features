@@ -15,3 +15,13 @@
 label, input {
     margin-top: 0.2em;
 }
+
+ol li.list-group-item { 
+    list-style: decimal inside;
+    display: list-item;
+}
+
+a {
+    color: #999;
+    text-decoration: none;
+}

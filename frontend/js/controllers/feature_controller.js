@@ -1,6 +1,6 @@
 angular.module('featuresApp')
-    .controller('featureController', ['$scope', '$http', '$location', '$window', '$routeParams',
-        function($scope, $http, $location, $window, $routeParams) {
+    .controller('featureController', ['$scope', '$http', '$location', '$window', '$routeParams', 'UserService', 'ClientService', 'FeatureService',
+        function($scope, $http, $location, $window, $routeParams, UserService, ClientService, FeatureService) {
             console.log('featureController');
 
             $scope.clients = [];
@@ -30,28 +30,6 @@ angular.module('featuresApp')
                 }).then(
                     function(data) {
                         $scope.feature = data.data;
-                    },
-                    function(error) {
-                        if (error.status == 401) {
-                            $location.path('/login')
-                        }
-                });
-            }
-
-            $scope.fetchClients = function() {
-                $http({
-                    method  : 'GET',
-                    url     : API_URL + '/clients/',
-                    headers : { 'Content-Type': 'application/json' }
-                }).then(
-                    function(data) {
-                        $scope.clients = data.data.results;
-
-                        // set default option on select.
-                        if ($scope.clients.length > 0) {
-                            $scope.feature.client_id = $scope.clients[0].id;
-                            $scope.max_client_priority = $scope.clients[0].max_client_priority + 1;
-                        }
                     },
                     function(error) {
                         if (error.status == 401) {
@@ -113,20 +91,38 @@ angular.module('featuresApp')
                         console.log(error)
                 });
             }
+
+            $scope.deleteFeature = function(feature_id) {
+                FeatureService.deleteFeature(feature_id).then(
+                    function(data) {
+                        $location.path('/features');
+                    });
+            }
             
-            $scope.fetchUserProfile = function() {
-                $http({
-                    method  : 'GET',
-                    url     : API_URL + '/users/profile',
-                    headers : { 'Content-Type': 'application/json' }
-                }).then(function(data) {
+            // fetch user profile.
+            UserService.fetchUserProfile().
+                then(function(data) {
                     $scope.isSuper = data.data.is_super;
                 });
-            } 
+
+            //fetch clients.
+            ClientService.fetchClients().then(
+                function(data) {
+                    $scope.clients = data.data.results;
+
+                    // set default option on select.
+                    if ($scope.clients.length > 0) {
+                        $scope.feature.client_id = $scope.clients[0].id;
+                        $scope.max_client_priority = $scope.clients[0].max_client_priority + 1;
+                    }
+                },
+                function(error) {
+                    if (error.status == 401) {
+                        $location.path('/login')
+                    }
+            });
 
             $scope.loadParams();
-            $scope.fetchClients();
             $scope.fetchProductAreas();
-            $scope.fetchUserProfile();
         }
 ]);

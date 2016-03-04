@@ -24,6 +24,7 @@
     "jquery": "^2.2.1",
     "angular-datepicker": "^2.0.3",
     "moment": "^2.11.2",
-    "angular-md": "^1.0.0"
+    "angular-md": "^1.0.0",
+    "lodash": "^4.6.1"
   }
 }

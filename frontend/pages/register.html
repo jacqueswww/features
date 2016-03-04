@@ -1,0 +1,47 @@
+<div class="container">
+    <div class="row">
+        <div class="col-xs-4">
+        </div>
+        <div class="col-xs-4 form-group">
+            <div class="input-group center_it">
+                <h1> Register </h1>
+            </div>
+            <form ng-submit="submitRegister()">
+                <div class="input-group">
+                    <label for="first_name"> First  </label>
+                    <input id="first_name" type="text" class="form-control" placeholder="Sherlock" ng-model="registration_details.first_name">
+                </div>
+                <div class="input-group">
+                    <label for="last_name"> Last Name </label>
+                    <input id="last_name" type="text" class="form-control" placeholder="Holmes" ng-model="registration_details.last_name">
+                </div>
+                <div class="input-group">
+                    <label for="last_name"> Email </label>
+                    <input id="email" type="text" class="form-control" placeholder="sherlock@22b.com" ng-model="registration_details.email">
+                </div>
+                <div class="input-group">
+                    <label for="user"> Username </label>
+                    <input id="user" type="text" class="form-control" placeholder="sherlock" ng-model="registration_details.username">
+                </div>
+                <div class="input-group">
+                    <label for="password"> Pasword </label>
+                    <input id="password" type="password" class="form-control" placeholder="password" ng-model="registration_details.password">
+            </form>
+            </div><br>
+                <button type="submit" class="btn btn-default" ng-click="submitRegister()"> Register </button>
+            </div>
+        </div>
+        <div class="col-xs-4">
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-xs-4">
+            &nbsp;
+        </div>
+        <div class="col-xs-4">
+            <div ng-show="error_message.length > 0" class="alert alert-danger">
+                {{ error_message }}
+            </div>
+        </div>
+    </div>
+</div>

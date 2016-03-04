@@ -48,8 +48,15 @@
             <a target="_blank" href="https://github.com/adam-p/markdown-here/wiki/Markdown-Cheatsheet"> Markdown Guide </a>
         </div>
         <div class="">
-            <button type="submit" class="btn btn-default" ng-click="submitFeature()" ng-show="type_message == 'Edit'"> Save Changes </button>
-            <button type="submit" class="btn btn-default" ng-click="submitFeature()" ng-show="type_message == 'Add'"> Add Feature </button>
+            <button type="submit" class="btn btn-default" ng-click="submitFeature()" ng-show="type_message == 'Edit'">
+                <i class="glyphicon glyphicon-save"></i> Save Changes 
+            </button>
+            <button type="submit" class="btn btn-default" ng-click="submitFeature()" ng-show="type_message == 'Add'"> 
+                <i class="glyphicon glyphicon-save"></i> Add Feature </button>
+            <br><br>
+            <button type="submit" class="btn btn-secondary" ng-click="deleteFeature(feature.id)" ng-show="type_message == 'Edit'">
+                <i class="glyphicon glyphicon-trash"></i> Delete Feature 
+            </button>
         </div>
     </div>
     <div class="col-xs-8">
