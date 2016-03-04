@@ -20,7 +20,7 @@ def create_app():
     from clients.clients_views import clients
     from users.models.user import User
 
-    app = Flask(__name__, static_url_path='', static_folder='../frontend', template_folder='../templates')
+    app = Flask(__name__, static_url_path='', static_folder='../frontend/dist', template_folder='../templates')
     # which environment we should run.
     app.config.from_object(os.environ.get('F_SETTINGS', 'features_app.settings.DevelopmentConfig'))
 

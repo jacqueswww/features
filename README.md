@@ -44,6 +44,20 @@ bower install
 ```
 
 4.
+To compile the frontend into a single page application install required gulp modules:
+
+
+```
+npm install -g gulp
+npm install 
+```
+
+And then you can just run gulp and the when a change occures the css and javascript files will recompile.
+```
+gulp
+```
+
+5.
 After setup you can run the development server with:
 ```
 ./manage.py runserver
