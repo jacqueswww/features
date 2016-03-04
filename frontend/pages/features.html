@@ -22,7 +22,7 @@
             </tr>
         </thead>
         <tbody>
-            <tr scope="row" ng-repeat="feature in features">
+            <tr scope="row" ng-repeat="feature in features | orderBy: ['master_priority', 'client_priority']">
                 <td> {{ feature.title }} </td>
                 <td> {{ feature.master_priority }} </td>
                 <td> {{ feature.client_name }} </td>
@@ -30,7 +30,7 @@
                 <td> {{ feature.product_area_name }} </td>
                 <td> {{ feature.created_by_name }} </td>
                 <td data-toggle="tooltip" title="{{ feature.target_date | date: 'fullDate' }}" > {{ feature.target_date | date: 'shortDate'}} </td>
-                <td> 
+                <td>
                 <button type="button" class="btn btn-default" title="Delete Feature" ng-click="deleteFeature(feature.id)">
                     <i class="glyphicon glyphicon-trash"></i>
                 </button>

@@ -70,9 +70,11 @@ angular.module('featuresApp')
         console.log(feature.client_priority)
         if ( direction == "up" && feature.client_priority > 1) {
             var new_client_priority = feature.client_priority - 1;
+            feature.client_priority - 1;
         } else if (direction == "down" && 
                    feature.client_priority < current_client.max_client_priority) {
-            var new_client_priority = feature.client_priority + 1
+            var new_client_priority = feature.client_priority + 1;
+            feature.client_priority = feature.client_priority + 1;
         } else {
             return null; // don't continue with the request.
         }

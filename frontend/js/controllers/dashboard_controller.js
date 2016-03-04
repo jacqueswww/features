@@ -14,7 +14,8 @@ angular.module('featuresApp')
                         $scope.identity = angular.identity;
                         $scope.clientFeatures = {};
                         $scope.masterFeatureList = [];
-                        
+                        $scope.productAreaFeatures = {};
+
                         for(var key in data.data.results) {
                             var feature = data.data.results[key];
                             if(!(feature.client_name in $scope.clientFeatures)) {
