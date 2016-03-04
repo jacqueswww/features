@@ -5,6 +5,7 @@ angular.module('featuresApp')
             console.log('dashboardController');
 
             $scope.clientFeatures = {};
+            $scope.productAreaFeatures = {};
             $scope.masterFeatureList = [];
             $scope.isSuper = false;
 
@@ -19,10 +20,13 @@ angular.module('featuresApp')
                             if(!(feature.client_name in $scope.clientFeatures)) {
                                 $scope.clientFeatures[feature.client_name] = [];
                             }
+                            if(!(feature.product_area_name in $scope.productAreaFeatures)) {
+                                $scope.productAreaFeatures[feature.product_area_name] = [];
+                            }
                             $scope.clientFeatures[feature.client_name].push(feature);
+                            $scope.productAreaFeatures[feature.product_area_name].push(feature);
                             $scope.masterFeatureList.push(feature);
                         }
-
                     },
                     function(error) {
                         if (error.status == 401) {

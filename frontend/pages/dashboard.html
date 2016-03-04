@@ -61,5 +61,29 @@
                 </div>
             </div>
         </div>
+        <div class="row">
+            <div class="col-xs-12">
+                <h4 class="pull-left"> Features Requests By Product Area </h4>
+            </div>
+        </div>
+        <div class="row">
+
+                <div class="col-xs-4 " ng-repeat="features in productAreaFeatures | toArray | orderBy: '$key' ">
+                <div class="panel panel-default">
+                    <div class="panel-heading"> {{  features.$key }} </div>
+                    <ul class="list-group">
+                        <li class="list-group-item" ng-repeat="feature in features | orderBy: 'name'"> 
+                            <span>{{ feature.title }} </span>
+                           <a class="pull-right" title="View Feature" href="#/feature/view/{{feature.id}}">
+                                <i class="glyphicon glyphicon glyphicon-eye-open pull-right"></i>
+                            </a>
+                            <a class="pull-right" title="Edit Feature" href="#/feature/{{feature.id}}">
+                                <i class="glyphicon glyphicon glyphicon-edit pull-right"></i>
+                            </a>
+                        </li>
+                    <ul>
+                </div>
+            </div>
+        </div>
     </div>
 </div>
