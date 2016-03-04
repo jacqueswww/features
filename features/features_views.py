@@ -6,7 +6,6 @@ from features.queries.feature_queries import FeatureQueries
 from features.services.feature_services import FeatureServices
 from features.serializers.feature_serializer import FeatureSerializer
 
-
 features = Blueprint('features', __name__)
 
 
@@ -14,7 +13,6 @@ features = Blueprint('features', __name__)
 @features.route('/<pk>/', methods=['GET', 'PATCH', 'DELETE'])
 @login_required
 def features_endpoint(pk=None):
-
     if request.method == 'GET':
         if pk:  # is query for single instance.
             feature = FeatureQueries.get_by_id(pk, queried_by=current_user)

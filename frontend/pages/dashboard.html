@@ -14,7 +14,7 @@
                 <div class="panel panel-default">
                     <div class="panel-heading"> Master Priority List </div>
                     <ol class="list-group"> 
-                        <li class="list-group-item" ng-repeat="masterfeature in masterFeatureList"> 
+                        <li class="list-group-item" ng-repeat="masterfeature in masterFeatureList | orderBy: 'master_priority'">
                             {{ masterfeature.title }}
                             <a title="View Feature" href="#/feature/view/{{masterfeature.id}}">
                                 <i class="glyphicon glyphicon glyphicon-eye-open pull-right"></i>
@@ -33,6 +33,7 @@
                         </li>
                     <ol>
                 </div>
+                <b> {{ loading_text }} </b>
             </div>
             <div class="col-xs-4 " ng-repeat="features in clientFeatures | toArray | orderBy: '$key' ">
                 <div class="panel panel-default">
@@ -67,8 +68,7 @@
             </div>
         </div>
         <div class="row">
-
-                <div class="col-xs-4 " ng-repeat="features in productAreaFeatures | toArray | orderBy: '$key' ">
+                <div class="col-xs-4 " ng-repeat="features in productAreaFeatures ">
                 <div class="panel panel-default">
                     <div class="panel-heading"> {{  features.$key }} </div>
                     <ul class="list-group">
@@ -83,6 +83,7 @@
                         </li>
                     <ul>
                 </div>
+                <b> {{ loading_text }} </b>
             </div>
         </div>
     </div>

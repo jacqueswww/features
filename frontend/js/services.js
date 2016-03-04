@@ -63,18 +63,13 @@ angular.module('featuresApp')
     }
 
     self.clientPriorityMove = function(feature, direction, clients) {
-        console.log(clients)
-        console.log('!!!!!')
         var current_client = self.getClientById(clients, feature.client_id);
-        console.log(current_client)
-        console.log(feature.client_priority)
+        
         if ( direction == "up" && feature.client_priority > 1) {
             var new_client_priority = feature.client_priority - 1;
-            feature.client_priority - 1;
         } else if (direction == "down" && 
                    feature.client_priority < current_client.max_client_priority) {
             var new_client_priority = feature.client_priority + 1;
-            feature.client_priority = feature.client_priority + 1;
         } else {
             return null; // don't continue with the request.
         }
@@ -83,7 +78,6 @@ angular.module('featuresApp')
     }
 
     self.masterPriorityMove = function(feature, direction) {
-        console.log('MASTER MOVE!')
         if (feature.master_priority > 1 && direction == "up") {
             var new_master_priority = feature.master_priority - 1;
         } else if (direction == "down") {
